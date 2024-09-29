@@ -3,14 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 final TextTheme textTheme = TextTheme(
   displayMedium: GoogleFonts.poppins(
-    fontSize: 40,
+    fontSize: 32,
     fontWeight: FontWeight.w700,
-    height: 56,
   ),
   displaySmall: GoogleFonts.poppins(
     fontSize: 24,
     fontWeight: FontWeight.w700,
-    height: 36,
   ),
   titleLarge: GoogleFonts.inter(
     fontSize: 20,
