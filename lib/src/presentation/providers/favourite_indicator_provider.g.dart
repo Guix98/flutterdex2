@@ -6,12 +6,12 @@ part of 'favourite_indicator_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favouritesListHash() => r'a54474cd442962ea7b627ebd2ac24ccfedf42afe';
+String _$favouritesListHash() => r'13ccc93b1b192c1d8680b7ebd85e2e63d30176b1';
 
 /// See also [FavouritesList].
 @ProviderFor(FavouritesList)
 final favouritesListProvider =
-    AutoDisposeNotifierProvider<FavouritesList, List<int>>.internal(
+    NotifierProvider<FavouritesList, List<int>>.internal(
   FavouritesList.new,
   name: r'favouritesListProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final favouritesListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$FavouritesList = AutoDisposeNotifier<List<int>>;
+typedef _$FavouritesList = Notifier<List<int>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

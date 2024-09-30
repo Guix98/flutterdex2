@@ -6,7 +6,7 @@ part of 'pokemon_details_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pokemonDetailHash() => r'2dcc8257b71e86e88f6b365e740d860b6d95da66';
+String _$pokemonDetailHash() => r'6b2dca4c0bb2f49afff050de907ef4d718003736';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -169,6 +169,154 @@ class _PokemonDetailProviderElement
 
   @override
   int get id => (origin as PokemonDetailProvider).id;
+}
+
+String _$pokemonDetailsSearchHash() =>
+    r'2c58050c97b60a733805aaf5f4398107996c55b3';
+
+abstract class _$PokemonDetailsSearch
+    extends BuildlessAutoDisposeAsyncNotifier<PokemonDetails> {
+  late final String pokemonName;
+
+  FutureOr<PokemonDetails> build(
+    String pokemonName,
+  );
+}
+
+/// See also [PokemonDetailsSearch].
+@ProviderFor(PokemonDetailsSearch)
+const pokemonDetailsSearchProvider = PokemonDetailsSearchFamily();
+
+/// See also [PokemonDetailsSearch].
+class PokemonDetailsSearchFamily extends Family<AsyncValue<PokemonDetails>> {
+  /// See also [PokemonDetailsSearch].
+  const PokemonDetailsSearchFamily();
+
+  /// See also [PokemonDetailsSearch].
+  PokemonDetailsSearchProvider call(
+    String pokemonName,
+  ) {
+    return PokemonDetailsSearchProvider(
+      pokemonName,
+    );
+  }
+
+  @override
+  PokemonDetailsSearchProvider getProviderOverride(
+    covariant PokemonDetailsSearchProvider provider,
+  ) {
+    return call(
+      provider.pokemonName,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'pokemonDetailsSearchProvider';
+}
+
+/// See also [PokemonDetailsSearch].
+class PokemonDetailsSearchProvider extends AutoDisposeAsyncNotifierProviderImpl<
+    PokemonDetailsSearch, PokemonDetails> {
+  /// See also [PokemonDetailsSearch].
+  PokemonDetailsSearchProvider(
+    String pokemonName,
+  ) : this._internal(
+          () => PokemonDetailsSearch()..pokemonName = pokemonName,
+          from: pokemonDetailsSearchProvider,
+          name: r'pokemonDetailsSearchProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$pokemonDetailsSearchHash,
+          dependencies: PokemonDetailsSearchFamily._dependencies,
+          allTransitiveDependencies:
+              PokemonDetailsSearchFamily._allTransitiveDependencies,
+          pokemonName: pokemonName,
+        );
+
+  PokemonDetailsSearchProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.pokemonName,
+  }) : super.internal();
+
+  final String pokemonName;
+
+  @override
+  FutureOr<PokemonDetails> runNotifierBuild(
+    covariant PokemonDetailsSearch notifier,
+  ) {
+    return notifier.build(
+      pokemonName,
+    );
+  }
+
+  @override
+  Override overrideWith(PokemonDetailsSearch Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: PokemonDetailsSearchProvider._internal(
+        () => create()..pokemonName = pokemonName,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        pokemonName: pokemonName,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<PokemonDetailsSearch, PokemonDetails>
+      createElement() {
+    return _PokemonDetailsSearchProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PokemonDetailsSearchProvider &&
+        other.pokemonName == pokemonName;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, pokemonName.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin PokemonDetailsSearchRef
+    on AutoDisposeAsyncNotifierProviderRef<PokemonDetails> {
+  /// The parameter `pokemonName` of this provider.
+  String get pokemonName;
+}
+
+class _PokemonDetailsSearchProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<PokemonDetailsSearch,
+        PokemonDetails> with PokemonDetailsSearchRef {
+  _PokemonDetailsSearchProviderElement(super.provider);
+
+  @override
+  String get pokemonName =>
+      (origin as PokemonDetailsSearchProvider).pokemonName;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

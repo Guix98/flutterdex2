@@ -22,7 +22,6 @@ class PokemonDetails {
   List<Move> moves;
   Species species;
   Sprites sprites;
-  Cries cries;
   List<Stat> stats;
   List<Type> types;
 
@@ -41,7 +40,6 @@ class PokemonDetails {
     required this.moves,
     required this.species,
     required this.sprites,
-    required this.cries,
     required this.stats,
     required this.types,
   });
@@ -61,7 +59,6 @@ class PokemonDetails {
     List<Move>? moves,
     Species? species,
     Sprites? sprites,
-    Cries? cries,
     List<Stat>? stats,
     List<Type>? types,
   }) =>
@@ -81,7 +78,6 @@ class PokemonDetails {
         moves: moves ?? this.moves,
         species: species ?? this.species,
         sprites: sprites ?? this.sprites,
-        cries: cries ?? this.cries,
         stats: stats ?? this.stats,
         types: types ?? this.types,
       );
@@ -103,7 +99,6 @@ class PokemonDetails {
         moves: List<Move>.from(json["moves"].map((x) => Move.fromJson(x))),
         species: Species.fromJson(json["species"]),
         sprites: Sprites.fromJson(json["sprites"]),
-        cries: Cries.fromJson(json["cries"]),
         stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
         types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
       );
@@ -123,7 +118,6 @@ class PokemonDetails {
         "moves": List<dynamic>.from(moves.map((x) => x.toJson())),
         "species": species.toJson(),
         "sprites": sprites.toJson(),
-        "cries": cries.toJson(),
         "stats": List<dynamic>.from(stats.map((x) => x.toJson())),
         "types": List<dynamic>.from(types.map((x) => x.toJson())),
       };
@@ -190,35 +184,6 @@ class Species {
   Map<String, dynamic> toJson() => {
         "name": name,
         "url": url,
-      };
-}
-
-class Cries {
-  String latest;
-  String legacy;
-
-  Cries({
-    required this.latest,
-    required this.legacy,
-  });
-
-  Cries copyWith({
-    String? latest,
-    String? legacy,
-  }) =>
-      Cries(
-        latest: latest ?? this.latest,
-        legacy: legacy ?? this.legacy,
-      );
-
-  factory Cries.fromJson(Map<String, dynamic> json) => Cries(
-        latest: json["latest"],
-        legacy: json["legacy"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "latest": latest,
-        "legacy": legacy,
       };
 }
 
@@ -406,108 +371,35 @@ class GenerationIv {
       };
 }
 
-class Versions {
-  GenerationI generationI;
-  GenerationIi generationIi;
-  GenerationIii generationIii;
-  GenerationIv generationIv;
-  GenerationV generationV;
-  Map<String, Home> generationVi;
-  GenerationVii generationVii;
-  GenerationViii generationViii;
-
-  Versions({
-    required this.generationI,
-    required this.generationIi,
-    required this.generationIii,
-    required this.generationIv,
-    required this.generationV,
-    required this.generationVi,
-    required this.generationVii,
-    required this.generationViii,
-  });
-
-  Versions copyWith({
-    GenerationI? generationI,
-    GenerationIi? generationIi,
-    GenerationIii? generationIii,
-    GenerationIv? generationIv,
-    GenerationV? generationV,
-    Map<String, Home>? generationVi,
-    GenerationVii? generationVii,
-    GenerationViii? generationViii,
-  }) =>
-      Versions(
-        generationI: generationI ?? this.generationI,
-        generationIi: generationIi ?? this.generationIi,
-        generationIii: generationIii ?? this.generationIii,
-        generationIv: generationIv ?? this.generationIv,
-        generationV: generationV ?? this.generationV,
-        generationVi: generationVi ?? this.generationVi,
-        generationVii: generationVii ?? this.generationVii,
-        generationViii: generationViii ?? this.generationViii,
-      );
-
-  factory Versions.fromJson(Map<String, dynamic> json) => Versions(
-        generationI: GenerationI.fromJson(json["generation-i"]),
-        generationIi: GenerationIi.fromJson(json["generation-ii"]),
-        generationIii: GenerationIii.fromJson(json["generation-iii"]),
-        generationIv: GenerationIv.fromJson(json["generation-iv"]),
-        generationV: GenerationV.fromJson(json["generation-v"]),
-        generationVi: Map.from(json["generation-vi"])
-            .map((k, v) => MapEntry<String, Home>(k, Home.fromJson(v))),
-        generationVii: GenerationVii.fromJson(json["generation-vii"]),
-        generationViii: GenerationViii.fromJson(json["generation-viii"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "generation-i": generationI.toJson(),
-        "generation-ii": generationIi.toJson(),
-        "generation-iii": generationIii.toJson(),
-        "generation-iv": generationIv.toJson(),
-        "generation-v": generationV.toJson(),
-        "generation-vi": Map.from(generationVi)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-        "generation-vii": generationVii.toJson(),
-        "generation-viii": generationViii.toJson(),
-      };
-}
-
 class Other {
-  DreamWorld dreamWorld;
   Home home;
   OfficialArtwork officialArtwork;
   Sprites showdown;
 
   Other({
-    required this.dreamWorld,
     required this.home,
     required this.officialArtwork,
     required this.showdown,
   });
 
   Other copyWith({
-    DreamWorld? dreamWorld,
     Home? home,
     OfficialArtwork? officialArtwork,
     Sprites? showdown,
   }) =>
       Other(
-        dreamWorld: dreamWorld ?? this.dreamWorld,
         home: home ?? this.home,
         officialArtwork: officialArtwork ?? this.officialArtwork,
         showdown: showdown ?? this.showdown,
       );
 
   factory Other.fromJson(Map<String, dynamic> json) => Other(
-        dreamWorld: DreamWorld.fromJson(json["dream_world"]),
         home: Home.fromJson(json["home"]),
         officialArtwork: OfficialArtwork.fromJson(json["official-artwork"]),
         showdown: Sprites.fromJson(json["showdown"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "dream_world": dreamWorld.toJson(),
         "home": home.toJson(),
         "official-artwork": officialArtwork.toJson(),
         "showdown": showdown.toJson(),
@@ -515,43 +407,40 @@ class Other {
 }
 
 class Sprites {
-  String backDefault;
-  dynamic backFemale;
-  String backShiny;
-  dynamic backShinyFemale;
-  String frontDefault;
-  dynamic frontFemale;
-  String frontShiny;
-  dynamic frontShinyFemale;
+  String? backDefault;
+  String? backFemale;
+  String? backShiny;
+  String? backShinyFemale;
+  String? frontDefault;
+  String? frontFemale;
+  String? frontShiny;
+  String? frontShinyFemale;
   Other? other;
-  Versions? versions;
   Sprites? animated;
 
   Sprites({
-    required this.backDefault,
-    required this.backFemale,
-    required this.backShiny,
-    required this.backShinyFemale,
-    required this.frontDefault,
-    required this.frontFemale,
-    required this.frontShiny,
-    required this.frontShinyFemale,
+    this.backDefault,
+    this.backFemale,
+    this.backShiny,
+    this.backShinyFemale,
+    this.frontDefault,
+    this.frontFemale,
+    this.frontShiny,
+    this.frontShinyFemale,
     this.other,
-    this.versions,
     this.animated,
   });
 
   Sprites copyWith({
     String? backDefault,
-    dynamic backFemale,
+    String? backFemale,
     String? backShiny,
-    dynamic backShinyFemale,
+    String? backShinyFemale,
     String? frontDefault,
-    dynamic frontFemale,
+    String? frontFemale,
     String? frontShiny,
-    dynamic frontShinyFemale,
+    String? frontShinyFemale,
     Other? other,
-    Versions? versions,
     Sprites? animated,
   }) =>
       Sprites(
@@ -564,7 +453,6 @@ class Sprites {
         frontShiny: frontShiny ?? this.frontShiny,
         frontShinyFemale: frontShinyFemale ?? this.frontShinyFemale,
         other: other ?? this.other,
-        versions: versions ?? this.versions,
         animated: animated ?? this.animated,
       );
 
@@ -578,9 +466,6 @@ class Sprites {
         frontShiny: json["front_shiny"],
         frontShinyFemale: json["front_shiny_female"],
         other: json["other"] == null ? null : Other.fromJson(json["other"]),
-        versions: json["versions"] == null
-            ? null
-            : Versions.fromJson(json["versions"]),
         animated: json["animated"] == null
             ? null
             : Sprites.fromJson(json["animated"]),
@@ -596,78 +481,7 @@ class Sprites {
         "front_shiny": frontShiny,
         "front_shiny_female": frontShinyFemale,
         "other": other?.toJson(),
-        "versions": versions?.toJson(),
         "animated": animated?.toJson(),
-      };
-}
-
-class GenerationI {
-  RedBlue redBlue;
-  RedBlue yellow;
-
-  GenerationI({
-    required this.redBlue,
-    required this.yellow,
-  });
-
-  GenerationI copyWith({
-    RedBlue? redBlue,
-    RedBlue? yellow,
-  }) =>
-      GenerationI(
-        redBlue: redBlue ?? this.redBlue,
-        yellow: yellow ?? this.yellow,
-      );
-
-  factory GenerationI.fromJson(Map<String, dynamic> json) => GenerationI(
-        redBlue: RedBlue.fromJson(json["red-blue"]),
-        yellow: RedBlue.fromJson(json["yellow"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "red-blue": redBlue.toJson(),
-        "yellow": yellow.toJson(),
-      };
-}
-
-class RedBlue {
-  String backDefault;
-  String backGray;
-  String frontDefault;
-  String frontGray;
-
-  RedBlue({
-    required this.backDefault,
-    required this.backGray,
-    required this.frontDefault,
-    required this.frontGray,
-  });
-
-  RedBlue copyWith({
-    String? backDefault,
-    String? backGray,
-    String? frontDefault,
-    String? frontGray,
-  }) =>
-      RedBlue(
-        backDefault: backDefault ?? this.backDefault,
-        backGray: backGray ?? this.backGray,
-        frontDefault: frontDefault ?? this.frontDefault,
-        frontGray: frontGray ?? this.frontGray,
-      );
-
-  factory RedBlue.fromJson(Map<String, dynamic> json) => RedBlue(
-        backDefault: json["back_default"],
-        backGray: json["back_gray"],
-        frontDefault: json["front_default"],
-        frontGray: json["front_gray"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "back_default": backDefault,
-        "back_gray": backGray,
-        "front_default": frontDefault,
-        "front_gray": frontGray,
       };
 }
 
@@ -850,87 +664,6 @@ class Home {
         "front_female": frontFemale,
         "front_shiny": frontShiny,
         "front_shiny_female": frontShinyFemale,
-      };
-}
-
-class GenerationVii {
-  DreamWorld icons;
-  Home ultraSunUltraMoon;
-
-  GenerationVii({
-    required this.icons,
-    required this.ultraSunUltraMoon,
-  });
-
-  GenerationVii copyWith({
-    DreamWorld? icons,
-    Home? ultraSunUltraMoon,
-  }) =>
-      GenerationVii(
-        icons: icons ?? this.icons,
-        ultraSunUltraMoon: ultraSunUltraMoon ?? this.ultraSunUltraMoon,
-      );
-
-  factory GenerationVii.fromJson(Map<String, dynamic> json) => GenerationVii(
-        icons: DreamWorld.fromJson(json["icons"]),
-        ultraSunUltraMoon: Home.fromJson(json["ultra-sun-ultra-moon"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "icons": icons.toJson(),
-        "ultra-sun-ultra-moon": ultraSunUltraMoon.toJson(),
-      };
-}
-
-class DreamWorld {
-  String frontDefault;
-  dynamic frontFemale;
-
-  DreamWorld({
-    required this.frontDefault,
-    required this.frontFemale,
-  });
-
-  DreamWorld copyWith({
-    String? frontDefault,
-    dynamic frontFemale,
-  }) =>
-      DreamWorld(
-        frontDefault: frontDefault ?? this.frontDefault,
-        frontFemale: frontFemale ?? this.frontFemale,
-      );
-
-  factory DreamWorld.fromJson(Map<String, dynamic> json) => DreamWorld(
-        frontDefault: json["front_default"],
-        frontFemale: json["front_female"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "front_default": frontDefault,
-        "front_female": frontFemale,
-      };
-}
-
-class GenerationViii {
-  DreamWorld icons;
-
-  GenerationViii({
-    required this.icons,
-  });
-
-  GenerationViii copyWith({
-    DreamWorld? icons,
-  }) =>
-      GenerationViii(
-        icons: icons ?? this.icons,
-      );
-
-  factory GenerationViii.fromJson(Map<String, dynamic> json) => GenerationViii(
-        icons: DreamWorld.fromJson(json["icons"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "icons": icons.toJson(),
       };
 }
 

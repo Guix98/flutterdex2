@@ -11,8 +11,14 @@ class PokemonDetail extends _$PokemonDetail {
     final details = await PokemonRepository.fetchPokemonDetails(id);
     return details;
   }
+}
 
-  String getPokemonType(PokemonDetails details) {
-    return details.types.first.type.name;
+@riverpod
+class PokemonDetailsSearch extends _$PokemonDetailsSearch {
+  @override
+  Future<PokemonDetails> build(String pokemonName) async {
+    final details =
+        await PokemonRepository.fetchPokemonDetailsByName(pokemonName);
+    return details;
   }
 }
