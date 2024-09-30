@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dex_2/src/common/helpers/num_helpers.dart';
 import 'package:flutter_dex_2/src/common/helpers/string_helpers.dart';
+import 'package:flutter_dex_2/src/presentation/providers/favourite_indicator_provider.dart';
 import 'package:flutter_dex_2/src/presentation/providers/pokemon_details_provider.dart';
 import 'package:flutter_dex_2/src/presentation/widgets/tabs/moves/moves_tab.dart';
 import 'package:flutter_dex_2/src/presentation/widgets/tabs/stats/stats_tab.dart';
@@ -23,6 +24,8 @@ class PokemonDetailsPageState extends ConsumerState<PokemonDetailsPage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final id = int.parse(widget.id);
+    final favouriteList = ref.watch(favouritesListProvider);
+    final isFavourite = favouriteList.contains(id);
     return ref.watch(pokemonDetailProvider(id)).when(
           loading: () => Center(child: CircularProgressIndicator.adaptive()),
           error: (error, _) => Center(child: Text('Error: $error')),
@@ -31,7 +34,7 @@ class PokemonDetailsPageState extends ConsumerState<PokemonDetailsPage> {
               elevation: 0,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => context.go('/'),
+                onPressed: () => context.pop(),
               ),
               title: Text(
                 pokemon.name.capitalize(),
@@ -39,16 +42,16 @@ class PokemonDetailsPageState extends ConsumerState<PokemonDetailsPage> {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(
-                    _selectedTabIndex == 0
-                        ? Icons.favorite_border
-                        : Icons.favorite,
-                    color: Colors.red,
-                  ),
+                  iconSize: 40,
                   onPressed: () {
-                    // Aquí se podría manejar el estado de favorito con Riverpod
+                    ref
+                        .read(favouritesListProvider.notifier)
+                        .toggle(pokemon.id);
                   },
-                ),
+                  icon: isFavourite
+                      ? const Icon(Icons.favorite, color: Colors.red)
+                      : const Icon(Icons.favorite_border, color: Colors.white),
+                )
               ],
             ),
             body: Padding(

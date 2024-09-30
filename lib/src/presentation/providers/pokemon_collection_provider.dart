@@ -1,6 +1,5 @@
 import 'package:flutter_dex_2/src/common/domain/models/result.dart';
 import 'package:flutter_dex_2/src/data/pokemon_repository.dart';
-import 'package:flutter_dex_2/src/presentation/providers/favourite_indicator_provider.dart';
 import 'package:flutter_dex_2/src/presentation/providers/offset_counter_provider.dart';
 import 'package:flutter_dex_2/src/presentation/providers/pokemon_details_provider.dart';
 import 'package:flutter_dex_2/src/services/pokemon_info_service.dart';
@@ -49,8 +48,7 @@ class PokemonCollection extends _$PokemonCollection {
     final pokemonInfoList = pokemonList.map((e) async {
       final pokemonDetails = ref.read(pokemonDetailProvider(e.id!).future);
       final type = await pokemonDetails;
-      final isFavourite =
-          ref.read(favouritesListProvider.notifier).isFavourite(e.id!);
+      final isFavourite = true;
       final pokemonInfo = PokemonInfo.fromResult(
           result: e,
           isFavourite: isFavourite,

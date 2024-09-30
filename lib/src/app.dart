@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// The Widget that configures your application.
 class MyApp extends ConsumerWidget {
   const MyApp({
     super.key,
@@ -13,7 +12,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appRouter = ref.watch(appRouterProvider);
+    final appRouter = ref.read(appRouterProvider);
     return MaterialApp.router(
       localizationsDelegates: const [
         AppLocalizations.delegate,

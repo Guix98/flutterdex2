@@ -62,7 +62,6 @@ class DioClient {
         errorMessage = 'Send timeout in connection with server';
         break;
       case DioExceptionType.badResponse:
-        // Handling different status codes
         if (e.response != null) {
           switch (e.response!.statusCode) {
             case 400:
