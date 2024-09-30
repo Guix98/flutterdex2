@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dex_2/src/config/theme/text_theme.dart';
 import 'package:flutter_dex_2/src/presentation/providers/pokemon_details_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +30,7 @@ class SliverSearchBarState extends ConsumerState<SliverSearchBar> {
               controller: _controller,
               focusNode: _focusNode,
               onSubmitted: (value) => _searchPokemon(),
+              autocorrect: false,
               decoration: const InputDecoration(
                 hintText: 'Buscar',
                 prefixIcon: Icon(Icons.search),
@@ -49,8 +51,6 @@ class SliverSearchBarState extends ConsumerState<SliverSearchBar> {
     try {
       final details =
           await ref.read(pokemonDetailsSearchProvider(pokemonName).future);
-      print('details: $details');
-
       if (mounted) {
         context.push('/details/${details.id}');
       }
@@ -59,7 +59,11 @@ class SliverSearchBarState extends ConsumerState<SliverSearchBar> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('No existe el Pokémon: $pokemonName'),
+            content: Text(
+              'No existe el Pokémon: $pokemonName',
+              style: textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+            backgroundColor: Colors.black54,
           ),
         );
       }

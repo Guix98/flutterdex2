@@ -26,8 +26,7 @@ class PokemonCollection extends _$PokemonCollection {
     if (_isLoadingMore) return;
 
     _isLoadingMore = true;
-    state = AsyncValue.data(
-        _pokemonCollection); // Actualiza el estado para que refleje el estado de carga
+    state = AsyncValue.data(_pokemonCollection);
 
     final newPokemonList = await _fetchMorePokemonList();
     final newPokemonInfoList = await _convertToPokemonInfoList(newPokemonList);

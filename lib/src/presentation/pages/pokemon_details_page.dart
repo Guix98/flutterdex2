@@ -118,7 +118,6 @@ class PokemonDetailsPageState extends ConsumerState<PokemonDetailsPage> {
                     ],
                   ),
                   SizedBox(height: 24),
-                  // Tabs para "Stats" y "Moves"
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

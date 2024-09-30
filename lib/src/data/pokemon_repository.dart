@@ -23,7 +23,6 @@ class PokemonRepository {
   static Future<PokemonDetails> fetchPokemonDetailsByName(String name) async {
     final response = await DioClient.get('/pokemon/$name');
     final pokemonDetails = PokemonDetails.fromJson(response.data);
-    print(pokemonDetails.name);
 
     return pokemonDetails;
   }
