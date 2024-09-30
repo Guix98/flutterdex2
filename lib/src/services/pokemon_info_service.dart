@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dex_2/src/common/domain/models/result.dart';
 import 'package:flutter_dex_2/src/config/theme/tokens.dart';
 
 class PokemonInfo {
@@ -16,17 +17,16 @@ class PokemonInfo {
     required this.isFavourite,
   });
 
-  factory PokemonInfo.fromPokemonList({
-    required int id,
-    required String name,
-    required String imageUrl,
-    required String type,
+  factory PokemonInfo.fromResult({
+    required Result result,
     required bool isFavourite,
+    required String type,
   }) {
+    final id = int.parse(result.url.split('/').reversed.elementAt(1));
     return PokemonInfo(
       id: id,
-      name: name,
-      imageUrl: imageUrl,
+      name: result.name,
+      imageUrl: _getImageUrl(id),
       backgroundColor: _getBackgroundColor(type),
       isFavourite: isFavourite,
     );
@@ -73,5 +73,9 @@ class PokemonInfo {
       default:
         return Colors.black;
     }
+  }
+
+  static String _getImageUrl(int id) {
+    return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png';
   }
 }

@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dex_2/src/config/theme/text_theme.dart';
 
 final ThemeData appTheme = ThemeData(
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: Colors.black,
-    textTheme: textTheme,
-    appBarTheme: appBarTheme);
+  brightness: Brightness.dark,
+  scaffoldBackgroundColor: Colors.black,
+  textTheme: textTheme,
+  appBarTheme: appBarTheme,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: WidgetStateProperty.all(Colors.white.withOpacity(0.2)),
+      foregroundColor: WidgetStateProperty.all(Colors.white),
+    ),
+  ),
+);
 
 final AppBarTheme appBarTheme = AppBarTheme(
     backgroundColor: Colors.black,

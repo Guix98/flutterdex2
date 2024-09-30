@@ -1,10 +1,12 @@
 class Result {
   String name;
   String url;
+  int? id;
 
   Result({
     required this.name,
     required this.url,
+    this.id,
   });
 
   Result copyWith({
@@ -19,6 +21,7 @@ class Result {
   factory Result.fromJson(Map<String, dynamic> json) => Result(
         name: json["name"],
         url: json["url"],
+        id: int.parse(json["url"].split('/').reversed.elementAt(1)),
       );
 
   Map<String, dynamic> toJson() => {

@@ -9,8 +9,8 @@ String pokemonListToJson(PokemonList data) => json.encode(data.toJson());
 
 class PokemonList {
   int count;
-  String next;
-  String previous;
+  String? next;
+  String? previous;
   List<Result> results;
 
   PokemonList({

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_dex_2/src/presentation/widgets/flexible_title_space_bar.dart';
+import 'package:flutter_dex_2/src/presentation/providers/pokemon_collection_provider.dart';
+import 'package:flutter_dex_2/src/presentation/widgets/appbar/fade_out_app_bar.dart';
+import 'package:flutter_dex_2/src/presentation/widgets/pokemon_grid/pokemon_grid.dart';
+import 'package:flutter_dex_2/src/presentation/widgets/sliver_search_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PokemonListPage extends ConsumerStatefulWidget {
@@ -12,6 +15,7 @@ class PokemonListPage extends ConsumerStatefulWidget {
 
 class PokemonListPageState extends ConsumerState<PokemonListPage> {
   late ScrollController _scrollController;
+  bool isLoadingMore = false;
 
   @override
   void initState() {
@@ -19,9 +23,11 @@ class PokemonListPageState extends ConsumerState<PokemonListPage> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        FocusScope.of(context).unfocus();
+      if (_scrollController.hasClients) {
+        if (_scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          FocusScope.of(context).unfocus();
+        }
       }
     });
   }
@@ -34,65 +40,35 @@ class PokemonListPageState extends ConsumerState<PokemonListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final isLoadingMore =
+        ref.watch(pokemonCollectionProvider.notifier).isLoadingMore;
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.black,
-            elevation: 0,
-            pinned: true,
-            expandedHeight: 250.0,
-            flexibleSpace: const FlexibleTitleSpaceBar(),
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                );
-              },
-            ),
-            actions: const [
-              Padding(
-                padding: EdgeInsets.only(right: 16),
-                child: CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Icon(Icons.person),
-                ),
+          FadeOutAppBar(),
+          SliverSearchBar(),
+          ref.watch(pokemonCollectionProvider).when(
+                data: (data) {
+                  return PokemonGrid(
+                    pokemonInfo: data,
+                  );
+                },
+                error: (o, s) => SliverToBoxAdapter(child: SizedBox.shrink()),
+                loading: () => PokemonGridSkeleton(),
               ),
-            ],
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Container(
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Buscar',
-                  prefixIcon: Icon(Icons.search),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16),
-                ),
+          if (isLoadingMore) ...[PokemonGridSkeleton()],
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
+              child: ElevatedButton(
+                onPressed: () {
+                  ref.read(pokemonCollectionProvider.notifier).addMorePokemon();
+                },
+                child: Text('Ver mas Pokémon'),
               ),
             ),
-          ])),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(childCount: 100,
-                  (BuildContext context, int index) {
-            return ListTile(
-              title: Text(
-                'Pokemon $index',
-                style: textTheme.labelMedium,
-              ),
-            );
-          })),
+          )
         ],
       ),
       drawer: const Drawer(
